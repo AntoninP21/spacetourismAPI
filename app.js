@@ -1,9 +1,10 @@
 const express = require('express');
 const morgan = require('morgan'); 
 const favicon = require('serve-favicon');
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const { success, getUniqueId } = require('./helper.js');
 let planets = require('./mock-planets');
+const PlanetModel = require('./src/models/planet') 
 
 const app = express();
 const port = 3000;
@@ -21,10 +22,24 @@ const sequelize = new Sequelize(
        logging: false
     }
    );
-   
-   sequelize.authenticate()
-       .then( _ => console.log(`La connexion à la base de données a bien été établie.`))
-       .catch( error => console.log(`Impossible de se connecter à la base de données : ${error}.`));
+
+sequelize.authenticate()
+    .then( _ => console.log(`La connexion à la base de données a bien été établie.`))
+    .catch( error => console.log(`Impossible de se connecter à la base de données : ${error}.`));
+
+    const Planet = PlanetModel(sequelize, DataTypes);
+
+sequelize.sync({force: true})
+.then( _ => {
+    console.log(`La base de données "spacetoursimAPI" a bien été synchronisée.`);
+    Planet.create({
+        name: 'Bulbizarre',
+        detail: 25,
+        distance: 5,
+        duree: 14,
+        image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png'
+    }).then(bulbizarre => console.log(bulbizarre.toJSON()));
+});
 
 app.use(favicon(`${__dirname}/favicon.ico`))
    .use(morgan('dev'))

@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const PlanetModel = require('../models/planet');
-const planets = require('./mock-planet');
+const planets = require('./mock-planets');
 
-const sequelize = new Sequelize('pokedex', 'root', '', {
+const sequelize = new Sequelize('spacetourismAPI', 'root', '', {
         host: 'localhost',
         dialect: 'mariadb',
         dialectOptions: {

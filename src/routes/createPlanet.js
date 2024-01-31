@@ -1,7 +1,8 @@
 const { Planet } = require('../db/sequelize');
+const auth = require('../auth/auth');
 
 module.exports = (app) => {
-    app.post('/api/planets', (req, res) => {
+    app.post('/api/planets',auth, (req, res) => {
         Planet.create(req.body)
             .then(planet => {
                 const message = `La planète ${req.body.name} a bien été crée.`;

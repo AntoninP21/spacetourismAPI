@@ -1,7 +1,8 @@
 const { Planet } = require('../db/sequelize');
+const auth = require('../auth/auth');
 
 module.exports = (app) => {
-    app.delete('/api/planets/:id', (req, res) => {
+    app.delete('/api/planets/:id',auth, (req, res) => {
         Planet.findByPk(req.params.id).then(planet => {
             if(planet === null) {
                 const message = `La planète demandée n'existe pas. Réessayez avec un autre identifiant.`;

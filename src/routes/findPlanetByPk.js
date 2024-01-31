@@ -1,7 +1,8 @@
 const { Planet } = require('../db/sequelize');
+const auth = require('../auth/auth');
 
 module.exports = (app) => {
-    app.get('/api/planets/:id', (req, res) => {
+    app.get('/api/planets/:id',auth, (req, res) => {
         Planet.findByPk(req.params.id)
             .then(planet => {
                 if(planet === null) {

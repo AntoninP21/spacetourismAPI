@@ -1,7 +1,9 @@
 const { Planet } = require('../db/sequelize');
 
+const auth = require('../auth/auth'); 
+
 module.exports = (app) => {
-    app.get('/api/planets', (req, res) => {
+    app.get('/api/planets', auth, (req, res) => {
         Planet.findAll()
             .then(planet => {
                 const message = 'La liste des planètes a bien été récupérée.';

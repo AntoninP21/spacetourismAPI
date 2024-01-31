@@ -18,6 +18,7 @@ require('./src/routes/findPlanetByPk')(app);
 require('./src/routes/createPlanet')(app);
 require('./src/routes/updatePlanet')(app);
 require('./src/routes/deletePlanet')(app);
+require('./src/routes/login')(app);
 
 app.use(({res}) => {
    const message = `Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.`;
